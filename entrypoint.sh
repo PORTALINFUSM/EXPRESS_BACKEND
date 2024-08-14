@@ -7,4 +7,4 @@ nginx -s reload
 nginx
 
 # Run Express
-DB_URI=$_DB_URI SECRET_JWT_KEY=$_SECRET_JWT_KEY bun run src/server.ts
+DB_URI=$_DB_URI SECRET_JWT_KEY=$_SECRET_JWT_KEY bun start
