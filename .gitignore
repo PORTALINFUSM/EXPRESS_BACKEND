@@ -2,4 +2,8 @@
 node_modules/
 
 # ENV
-.env
+*.env
+*.env.json
+
+# TEMP
+*.ansi
