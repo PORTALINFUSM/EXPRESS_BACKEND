@@ -5,6 +5,23 @@ on:
     branches: [ "main" ]
 
 jobs:
+  build-upload-azure:
+    if: ${{ startsWith(github.event.pull_request.title, 'image') }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag registrosportalinfusm.azurecr.io/portal-inf-usm-express:latest
+
+    - uses: azure/docker-login@v2
+      with:
+        login-server: registrosportalinfusm.azurecr.io
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+        
+    - name: Upload the Docker image
+      run: docker push registrosportalinfusm.azurecr.io/portal-inf-usm-express:latest
+
 
   build-upload:
     if: ${{ startsWith(github.event.pull_request.title, 'image') }}
